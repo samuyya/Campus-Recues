@@ -1,12 +1,155 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SIGEP</title>
+  <meta name="description" content="Reporta objetos perdidos o encontrados en el campus y ayuda a devolverlos a sus propietarios.">
+  <title>SIGEP | Objetos perdidos del campus</title>
 </head>
 <body>
-  <h1>SIGEP</h1>
-  <p>El servidor funciona.</p>
+  <a href="#contenido">Saltar al contenido principal</a>
+
+  <header>
+    <p>Objetos perdidos del campus</p>
+    <h1>SIGEP</h1>
+    <p>Un lugar para reportar, encontrar y recuperar tus objetos.</p>
+    <nav aria-label="Navegación principal">
+      <a href="#reportes">Consultar reportes</a>
+      <a href="#nuevo-reporte">Crear un reporte</a>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <p>Vista inicial: guardar, filtrar y consultar detalles estarán disponibles al conectar la aplicación.</p>
+    <div id="mensaje-general" role="status" aria-live="polite"></div>
+    <div id="error-general" role="alert"></div>
+
+    <section id="reportes" aria-labelledby="titulo-reportes">
+      <h2 id="titulo-reportes">Explora los reportes</h2>
+      <p>Busca si alguien encontró tu objeto o reportó uno que tú encontraste.</p>
+
+      <form id="formulario-filtros" aria-describedby="ayuda-filtros">
+        <fieldset>
+          <legend>Filtrar reportes</legend>
+          <p id="ayuda-filtros">Puedes combinar categoría, ubicación y tipo de reporte.</p>
+
+          <div>
+            <label for="filtro-categoria">Categoría</label>
+            <select id="filtro-categoria" name="categoria">
+              <option value="">Todas las categorías</option>
+              <option value="Electrónicos">Electrónicos</option>
+              <option value="Mochilas y bolsos">Mochilas y bolsos</option>
+              <option value="Documentos">Documentos</option>
+              <option value="Llaves">Llaves</option>
+              <option value="Botellas y termos">Botellas y termos</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="filtro-ubicacion">Ubicación</label>
+            <input id="filtro-ubicacion" name="ubicacion" type="search" placeholder="Ej.: Biblioteca">
+          </div>
+
+          <div>
+            <label for="filtro-tipo">Tipo de reporte</label>
+            <select id="filtro-tipo" name="tipo">
+              <option value="">Todos los tipos</option>
+              <option value="perdido">Perdido</option>
+              <option value="encontrado">Encontrado</option>
+            </select>
+          </div>
+
+          <button id="aplicar-filtros" type="submit" disabled>Aplicar filtros</button>
+          <button type="reset">Limpiar filtros</button>
+        </fieldset>
+      </form>
+
+      <div id="mensaje-listado" role="status" aria-live="polite"></div>
+      <div id="lista-reportes" aria-label="Listado de reportes"></div>
+    </section>
+
+    <section id="nuevo-reporte" aria-labelledby="titulo-formulario">
+      <h2 id="titulo-formulario">Crea un reporte</h2>
+      <p>Cuéntanos qué perdiste o encontraste para ayudar a reunir cada objeto con su dueño.</p>
+      <p id="ayuda-obligatorios">Todos los campos son obligatorios. El estado inicial será Activo.</p>
+
+      <form id="formulario-reporte" aria-describedby="ayuda-obligatorios">
+        <fieldset>
+          <legend>Datos del objeto</legend>
+
+          <div>
+            <label for="tipo">Tipo de reporte</label>
+            <select id="tipo" name="tipo" required>
+              <option value="">Selecciona una opción</option>
+              <option value="perdido">Perdido</option>
+              <option value="encontrado">Encontrado</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="nombre">Nombre del objeto</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Ej.: Mochila azul" required>
+          </div>
+
+          <div>
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria" required>
+              <option value="">Selecciona una categoría</option>
+              <option value="Electrónicos">Electrónicos</option>
+              <option value="Mochilas y bolsos">Mochilas y bolsos</option>
+              <option value="Documentos">Documentos</option>
+              <option value="Llaves">Llaves</option>
+              <option value="Botellas y termos">Botellas y termos</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describe el color, la marca y otras características del objeto." required></textarea>
+          </div>
+
+          <div>
+            <label for="ubicacion">Ubicación</label>
+            <input id="ubicacion" name="ubicacion" type="text" placeholder="Ej.: Biblioteca, segundo piso" required>
+          </div>
+
+          <div>
+            <label for="fecha">Fecha en que se perdió o encontró</label>
+            <input id="fecha" name="fecha" type="date" required>
+          </div>
+
+          <div>
+            <label for="contacto">Alias de contacto</label>
+            <input id="contacto" name="contacto" type="text" placeholder="Ej.: EstudianteAzul" aria-describedby="ayuda-contacto" required>
+            <p id="ayuda-contacto">Usa un alias que permita identificarte. Evita publicar datos personales sensibles.</p>
+          </div>
+
+          <p>Estado: <strong>Activo</strong></p>
+          <input type="hidden" name="estado" value="activo">
+        </fieldset>
+
+        <div id="error-formulario" role="alert"></div>
+        <div id="mensaje-formulario" role="status" aria-live="polite"></div>
+        <button id="guardar-reporte" type="submit" disabled>Guardar reporte</button>
+        <button type="reset">Limpiar formulario</button>
+      </form>
+    </section>
+
+    <section id="detalle-reporte" aria-labelledby="titulo-detalle">
+      <h2 id="titulo-detalle">Detalle del reporte</h2>
+      <p id="ayuda-detalle">Selecciona un reporte de la lista para consultar todos sus datos.</p>
+      <div id="contenido-detalle"></div>
+      <div id="error-detalle" role="alert"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>SIGEP · Sistema de Gestión de Elementos Perdidos</p>
+    <p>Ayudémonos a recuperar lo que importa.</p>
+  </footer>
 </body>
 </html>
