@@ -21,7 +21,7 @@ Este documento cuenta cómo se usó la IA (Claude Code) para construir SIGEP en 
 | A4 | `seed.js`: 5 reportes ficticios con `npm run seed`. |
 | A5 | `POST /api/reportes` con una sola función de validación. |
 | A6 | `PATCH /api/reportes/:id/devuelto` y manejo de errores siempre en JSON. |
-| A7 | `public/css/styles.css`: ámbar para activos, verde para devueltos, diseño responsive. |
+| A7 | Hoja de estilos con ámbar para activos, verde para devueltos y diseño responsive, más una pasada de pulido (O2). Después el equipo decidió usar la hoja de B (`public/css/style.css`), que ya traía su propio diseño, y esta se eliminó. |
 | A8 | `README.md` completo. |
 
 ## 3. Decisiones de diseño
