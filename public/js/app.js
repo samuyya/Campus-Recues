@@ -6,23 +6,32 @@
   const reintentar = document.getElementById('reintentar-conexion');
   const lista = document.getElementById('lista-reportes');
 
+  let filtrosAplicados = {};
+  let ultimaSolicitud = 0;
+
   async function cargarReportes() {
+    const solicitud = ++ultimaSolicitud;
+    const filtros = { ...filtrosAplicados };
     error.textContent = '';
     mensaje.textContent = 'Cargando reportes…';
     lista.setAttribute('aria-busy', 'true');
     reintentar.hidden = true;
     reintentar.disabled = true;
     try {
-      const reportes = await window.SigepAPI.listar();
-      window.SigepUI.mostrarReportes(reportes);
+      const reportes = await window.SigepAPI.listar(filtros);
+      if (solicitud !== ultimaSolicitud) return;
+      window.SigepUI.mostrarReportes(reportes, Object.keys(filtros).length > 0);
       mensaje.textContent = '';
     } catch (problema) {
+      if (solicitud !== ultimaSolicitud) return;
       mensaje.textContent = '';
       error.textContent = problema.message;
       reintentar.hidden = false;
     } finally {
-      lista.setAttribute('aria-busy', 'false');
-      reintentar.disabled = false;
+      if (solicitud === ultimaSolicitud) {
+        lista.setAttribute('aria-busy', 'false');
+        reintentar.disabled = false;
+      }
     }
   }
 
@@ -60,6 +69,17 @@
   formulario.addEventListener('submit', guardarReporte);
   formulario.addEventListener('reset', () => window.SigepUI.mostrarMensajeFormulario());
   window.SigepUI.establecerGuardando(false);
+  const formularioFiltros = document.getElementById('formulario-filtros');
+  formularioFiltros.addEventListener('submit', evento => {
+    evento.preventDefault();
+    filtrosAplicados = window.SigepUI.leerFiltros();
+    cargarReportes();
+  });
+  formularioFiltros.addEventListener('reset', () => {
+    filtrosAplicados = {};
+    cargarReportes();
+  });
+  document.getElementById('aplicar-filtros').disabled = false;
   reintentar.addEventListener('click', cargarReportes);
   cargarReportes();
 })();

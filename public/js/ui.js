@@ -33,13 +33,23 @@ window.SigepUI = (() => {
     return tarjeta;
   }
 
-  function mostrarReportes(reportes) {
+  function mostrarReportes(reportes, hayFiltros = false) {
     const fragmento = document.createDocumentFragment();
     for (const reporte of reportes) fragmento.append(crearTarjeta(reporte));
     lista.replaceChildren(fragmento);
     mensajeListado.textContent = reportes.length === 0
-      ? 'No hay reportes registrados todavía.'
+      ? (hayFiltros ? 'No se encontraron objetos con los criterios seleccionados.' : 'No hay reportes registrados todavía.')
       : `${reportes.length} ${reportes.length === 1 ? 'reporte registrado' : 'reportes registrados'}.`;
+  }
+
+  function leerFiltros() {
+    const formulario = document.getElementById('formulario-filtros');
+    const filtros = {};
+    for (const campo of ['categoria', 'ubicacion', 'tipo']) {
+      const valor = formulario.elements.namedItem(campo).value.trim();
+      if (valor) filtros[campo] = valor;
+    }
+    return filtros;
   }
 
   function leerReporte() {
@@ -67,5 +77,5 @@ window.SigepUI = (() => {
     boton.textContent = guardando ? 'Guardando…' : 'Guardar reporte';
   }
 
-  return Object.freeze({ mostrarReportes, leerReporte, mostrarMensajeFormulario, establecerGuardando });
+  return Object.freeze({ mostrarReportes, leerFiltros, leerReporte, mostrarMensajeFormulario, establecerGuardando });
 })();
