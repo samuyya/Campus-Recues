@@ -6,7 +6,8 @@
   const reintentar = document.getElementById('reintentar-conexion');
   const lista = document.getElementById('lista-reportes');
 
-  let filtrosAplicados = {};
+  const parametrosPagina = new URLSearchParams(window.location.search);
+  let filtrosAplicados = parametrosPagina.get('estado') === 'devuelto' ? { estado: 'devuelto' } : {};
   let ultimaSolicitud = 0;
 
   async function cargarReportes() {
@@ -104,40 +105,6 @@
     if (boton) devolverReporte(boton);
   });
 
-  const formulario = document.getElementById('formulario-reporte');
-  let guardando = false;
-
-  async function guardarReporte(evento) {
-    evento.preventDefault();
-    if (guardando) return;
-    const reporte = window.SigepUI.leerReporte();
-    const errorValidacion = window.SigepAPI.validarReporte(reporte);
-    if (errorValidacion) {
-      window.SigepUI.mostrarMensajeFormulario(errorValidacion, true);
-      return;
-    }
-
-    guardando = true;
-    window.SigepUI.establecerGuardando(true);
-    window.SigepUI.mostrarMensajeFormulario('Guardando reporte…');
-    try {
-      await window.SigepAPI.crear(reporte);
-      formulario.reset();
-      window.SigepUI.mostrarMensajeFormulario('Reporte guardado correctamente.');
-      await cargarReportes();
-    } catch (problema) {
-      window.SigepUI.mostrarMensajeFormulario(problema.message, true);
-    } finally {
-      guardando = false;
-      window.SigepUI.establecerGuardando(false);
-    }
-  }
-
-  // La validación propia permite mostrar los mensajes acordados en español.
-  formulario.noValidate = true;
-  formulario.addEventListener('submit', guardarReporte);
-  formulario.addEventListener('reset', () => window.SigepUI.mostrarMensajeFormulario());
-  window.SigepUI.establecerGuardando(false);
   const formularioFiltros = document.getElementById('formulario-filtros');
   formularioFiltros.addEventListener('submit', evento => {
     evento.preventDefault();
@@ -149,13 +116,6 @@
     cargarReportes();
   });
   document.getElementById('aplicar-filtros').disabled = false;
-  document.querySelectorAll('[data-reportar]').forEach(enlace => {
-    enlace.addEventListener('click', () => {
-      if (guardando) return;
-      formulario.elements.namedItem('tipo').value = enlace.dataset.reportar;
-      formulario.elements.namedItem('nombre').focus({ preventScroll: true });
-    });
-  });
   document.getElementById('nav-recuperados').addEventListener('click', () => {
     filtrosAplicados = { ...window.SigepUI.leerFiltros(), estado: 'devuelto' };
     cargarReportes();
@@ -184,4 +144,5 @@
   });
   reintentar.addEventListener('click', cargarReportes);
   cargarReportes();
+  if (parametrosPagina.get('reporte')) abrirDetalle(parametrosPagina.get('reporte'));
 })();

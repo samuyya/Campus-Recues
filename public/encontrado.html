@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#003B7A">
+  <title>Registrar reporte | SIGEP</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js" defer></script>
+  <script src="js/registro.js" defer></script>
+</head>
+<body class="registration-page" data-tipo="encontrado">
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
+      <nav aria-label="Navegación principal">
+        <a class="nav-link" href="index.html">Inicio</a>
+        <a class="nav-link is-active" href="reportar.html" aria-current="page">Reportar</a>
+        <a class="nav-link" href="index.html#reportes">Buscar</a>
+        <a class="nav-link" href="index.html?estado=devuelto#reportes">Recuperados</a>
+        <a class="nav-link" href="index.html#ayuda">Ayuda</a>
+      </nav>
+      <div class="institution"><img id="logo-itm" src="assets/logo-itm.jpeg" alt="ITM Institución Universitaria, reacreditada en alta calidad" width="474" height="392"></div>
+    </div>
+  </header>
+  <section class="registration-banner" aria-labelledby="titulo-registro">
+    <div class="registration-banner-inner">
+      <div><nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="index.html">Inicio</a><span aria-hidden="true">›</span><span>Reportar elemento</span></nav><h1 id="titulo-registro">Registrar nuevo reporte</h1><p>Completa la información del elemento perdido o encontrado para facilitar<br class="desktop-break"> su identificación y recuperación dentro del campus.</p></div>
+      <div class="banner-illustration"><p>Pequeñas cosas,<br><strong>grandes reencuentros.</strong></p><img src="assets/objetos-campus.svg" alt="" width="640" height="460"></div>
+    </div>
+  </section>
+  <main id="contenido" class="registration-layout">
+    <section class="panel registration-form-panel" aria-label="Formulario de registro">
+      <form id="formulario-registro" novalidate aria-describedby="campos-obligatorios">
+        <fieldset id="campos-registro">
+          <legend class="visually-hidden">Información del reporte</legend>
+          <p id="campos-obligatorios" class="required-note">Los campos con <span aria-hidden="true">*</span> son obligatorios.</p>
+          <fieldset class="type-fieldset"><legend>Tipo de reporte <span class="required-mark" aria-hidden="true">*</span></legend>
+            <div class="type-options">
+              <label class="type-option type-lost"><input type="radio" name="tipo" value="perdido" required><span class="type-symbol" aria-hidden="true"><img src="assets/mochila.svg" alt="" width="32" height="40"></span><span><strong>Perdido</strong><small>He perdido un elemento<br>dentro del campus.</small></span></label>
+              <label class="type-option type-found"><input type="radio" name="tipo" value="encontrado" required><span class="type-symbol" aria-hidden="true">⌕</span><span><strong>Encontrado</strong><small>He encontrado un elemento<br>dentro del campus.</small></span></label>
+            </div>
+          </fieldset>
+          <div class="registration-field"><label for="nombre">Nombre del objeto <span class="required-mark" aria-hidden="true">*</span></label><input id="nombre" name="nombre" placeholder="Ejemplo: Mochila negra, llaves, portátil…" required></div>
+          <div class="registration-field"><label for="categoria">Categoría <span class="required-mark" aria-hidden="true">*</span></label><select id="categoria" name="categoria" required><option value="">Selecciona una categoría</option><option>Electrónicos</option><option>Mochilas y bolsos</option><option>Documentos</option><option>Llaves</option><option>Botellas y termos</option><option>Ropa</option><option>Otros</option></select></div>
+          <div class="registration-field"><label for="descripcion">Descripción <span class="required-mark" aria-hidden="true">*</span></label><textarea id="descripcion" name="descripcion" rows="4" maxlength="1000" placeholder="Describe características, color, marca o cualquier detalle que facilite la identificación del elemento." aria-describedby="contador-descripcion" required></textarea><p id="contador-descripcion" class="character-count">0/1000</p></div>
+          <div class="registration-field"><label for="ubicacion">Ubicación <span class="required-mark" aria-hidden="true">*</span></label><input id="ubicacion" name="ubicacion" list="ubicaciones-campus" placeholder="Selecciona o escribe una ubicación" required><datalist id="ubicaciones-campus"><option value="Biblioteca"><option value="Bloque A"><option value="Cafetería"><option value="Laboratorios"><option value="Zonas deportivas"><option value="Parqueadero"></datalist></div>
+          <div class="registration-row"><div><label for="fecha">Fecha <span class="required-mark" aria-hidden="true">*</span></label><input id="fecha" name="fecha" type="date" required></div><div><label for="contacto">Alias de contacto <span class="required-mark" aria-hidden="true">*</span></label><input id="contacto" name="contacto" placeholder="Ejemplo: Nico17, MariaITM…" required></div></div>
+          <div class="registration-row photo-state"><div><label for="foto">Fotografía <span class="optional-label">(opcional)</span></label><div class="photo-dropzone" id="zona-foto"><span aria-hidden="true">▧</span><p>Selecciona una imagen de tu dispositivo</p><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="ayuda-foto"><small id="ayuda-foto">JPG, PNG o WEBP · máximo 3 MB</small></div><button type="button" id="quitar-foto" class="text-button" hidden>Quitar fotografía</button><p id="error-foto" role="alert"></p></div><div><p class="field-label">Estado</p><span class="state-pill">♧ &nbsp; Activo</span><p class="state-help">El estado se asigna automáticamente al crear el reporte.</p></div></div>
+        </fieldset>
+        <div id="error-registro" role="alert" tabindex="-1"></div><div id="mensaje-registro" role="status" aria-live="polite"></div><a id="ver-reporte-creado" href="index.html#reportes" class="success-link" hidden>Ver reporte registrado →</a>
+        <div class="registration-actions"><a class="button button-secondary" href="index.html">Cancelar</a><button id="registrar-reporte" type="submit"><span aria-hidden="true">↗</span> Registrar reporte</button></div>
+      </form>
+    </section>
+    <aside class="registration-sidebar" aria-label="Vista previa y recomendaciones">
+      <section class="preview-panel" aria-labelledby="titulo-previa"><h2 id="titulo-previa">Vista previa del reporte</h2><p>Así se verá tu reporte una vez sea publicado.</p>
+        <div class="preview-card"><div class="preview-media"><span class="preview-label">Vista previa</span><span id="simbolo-previa" aria-hidden="true"><img src="assets/mochila.svg" alt="" width="72" height="90"></span><img id="foto-previa" alt="Vista previa de la fotografía seleccionada" hidden></div><dl class="preview-data"><dt>Nombre del objeto</dt><dd id="previa-nombre">Nombre del objeto</dd><dt>Tipo de reporte</dt><dd><span id="previa-tipo" class="preview-badge">Perdido</span></dd><dt>Categoría</dt><dd id="previa-categoria">Sin seleccionar</dd><dt>Descripción</dt><dd id="previa-descripcion">La descripción aparecerá aquí.</dd><dt>Ubicación</dt><dd id="previa-ubicacion">Sin indicar</dd><dt>Fecha</dt><dd id="previa-fecha">Sin indicar</dd><dt>Alias de contacto</dt><dd id="previa-contacto">Tu alias</dd><dt>Estado</dt><dd><span class="state-pill">Activo</span></dd></dl></div>
+        <p class="preview-info"><span aria-hidden="true">ⓘ</span> La vista previa se actualiza en tiempo real mientras completas el formulario.</p>
+      </section>
+      <section class="registration-tips" aria-labelledby="titulo-consejos"><h2 id="titulo-consejos"><span aria-hidden="true">☼</span> Ten en cuenta</h2><ul><li>La información debe ser clara y detallada.</li><li>Incluye características que faciliten la identificación.</li><li>Usa un alias de contacto.</li><li>La fotografía es opcional, pero puede ayudar.</li><li>El reporte será visible para la comunidad ITM.</li></ul></section>
+    </aside>
+  </main>
+  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="index.html">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="index.html#contacto-ayuda">Contacto</a><a href="index.html#terminos">Términos de uso</a><a href="index.html#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
+</body>
+</html>

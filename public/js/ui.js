@@ -119,30 +119,5 @@ window.SigepUI = (() => {
     return filtros;
   }
 
-  function leerReporte() {
-    const formulario = document.getElementById('formulario-reporte');
-    const reporte = {};
-    for (const campo of ['tipo', 'nombre', 'categoria', 'descripcion', 'ubicacion', 'fecha', 'contacto']) {
-      reporte[campo] = formulario.elements.namedItem(campo).value.trim();
-    }
-    reporte.estado = 'activo';
-    return reporte;
-  }
-
-  function mostrarMensajeFormulario(mensaje = '', esError = false) {
-    document.getElementById('error-formulario').textContent = esError ? mensaje : '';
-    document.getElementById('mensaje-formulario').textContent = esError ? '' : mensaje;
-  }
-
-  function establecerGuardando(guardando) {
-    const formulario = document.getElementById('formulario-reporte');
-    formulario.setAttribute('aria-busy', String(guardando));
-    formulario.querySelector('fieldset').disabled = guardando;
-    formulario.querySelector('button[type="reset"]').disabled = guardando;
-    const boton = document.getElementById('guardar-reporte');
-    boton.disabled = guardando;
-    boton.textContent = guardando ? 'Guardando…' : 'Guardar reporte';
-  }
-
-  return Object.freeze({ mostrarReportes, mostrarEstadisticas, prepararDetalle, mostrarDetalle, mostrarErrorDetalle, leerFiltros, leerReporte, mostrarMensajeFormulario, establecerGuardando });
+  return Object.freeze({ mostrarReportes, mostrarEstadisticas, prepararDetalle, mostrarDetalle, mostrarErrorDetalle, leerFiltros });
 })();

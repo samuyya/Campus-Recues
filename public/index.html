@@ -18,7 +18,7 @@
       <a class="brand" href="#inicio" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
       <nav aria-label="Navegación principal">
         <a class="nav-link is-active" href="#inicio" aria-current="page">Inicio</a>
-        <a class="nav-link" href="#nuevo-reporte">Reportar</a>
+        <a class="nav-link" href="reportar.html">Reportar</a>
         <a class="nav-link" href="#reportes">Buscar</a>
         <a class="nav-link" href="#reportes" id="nav-recuperados">Recuperados</a>
         <a class="nav-link" href="#ayuda">Ayuda</a>
@@ -31,7 +31,7 @@
       <div class="hero-copy"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> JUNTOS, HACEMOS COMUNIDAD</p>
         <h1 id="titulo-hero">¿Necesitas reportar<br>o recuperar un elemento <span>dentro del campus?</span></h1>
         <p class="hero-description">SIGEP es la plataforma institucional del ITM para el registro, consulta y recuperación de elementos perdidos y encontrados dentro de las instalaciones universitarias.</p>
-        <div class="hero-actions"><a class="button" href="#nuevo-reporte" data-reportar="perdido"><span aria-hidden="true">＋</span> Registrar elemento perdido</a><a class="button button-green" href="#nuevo-reporte" data-reportar="encontrado"><span aria-hidden="true">✓</span> Registrar elemento encontrado</a></div>
+        <div class="hero-actions"><a class="button" href="reportar.html"><span aria-hidden="true">＋</span> Registrar elemento perdido</a><a class="button button-green" href="encontrado.html"><span aria-hidden="true">✓</span> Registrar elemento encontrado</a></div>
         <p class="hero-note"><span aria-hidden="true">♡</span> Un pequeño gesto puede hacer una gran diferencia.</p>
       </div>
       <figure class="hero-art"><img src="assets/objetos-campus.svg" alt="Ilustración de una mochila, un portátil, llaves, un cuaderno y un termo" width="640" height="460"><figcaption>Conectando a la comunidad ITM<br><strong>con sus pertenencias</strong></figcaption></figure>
@@ -99,84 +99,14 @@
       <div id="lista-reportes" aria-label="Listado de reportes"></div>
     </section>
 
-    <div class="gestion-grid"><section class="panel" id="nuevo-reporte" aria-labelledby="titulo-formulario">
-      <h2 id="titulo-formulario">Crea un reporte</h2>
-      <p>Cuéntanos qué perdiste o encontraste para ayudar a reunir cada objeto con su dueño.</p>
-      <p id="ayuda-obligatorios">Todos los campos son obligatorios. El estado inicial será Activo.</p>
-
-      <form id="formulario-reporte" aria-describedby="ayuda-obligatorios">
-        <fieldset>
-          <legend>Datos del objeto</legend>
-
-          <div>
-            <label for="tipo">Tipo de reporte</label>
-            <select id="tipo" name="tipo" required>
-              <option value="">Selecciona una opción</option>
-              <option value="perdido">Perdido</option>
-              <option value="encontrado">Encontrado</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="nombre">Nombre del objeto</label>
-            <input id="nombre" name="nombre" type="text" placeholder="Ej.: Mochila azul" required>
-          </div>
-
-          <div>
-            <label for="categoria">Categoría</label>
-            <select id="categoria" name="categoria" required>
-              <option value="">Selecciona una categoría</option>
-              <option value="Electrónicos">Electrónicos</option>
-              <option value="Mochilas y bolsos">Mochilas y bolsos</option>
-              <option value="Documentos">Documentos</option>
-              <option value="Llaves">Llaves</option>
-              <option value="Botellas y termos">Botellas y termos</option>
-              <option value="Ropa">Ropa</option>
-              <option value="Otros">Otros</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="descripcion">Descripción</label>
-            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describe el color, la marca y otras características del objeto." required></textarea>
-          </div>
-
-          <div>
-            <label for="ubicacion">Ubicación</label>
-            <input id="ubicacion" name="ubicacion" type="text" placeholder="Ej.: Biblioteca, segundo piso" required>
-          </div>
-
-          <div>
-            <label for="fecha">Fecha en que se perdió o encontró</label>
-            <input id="fecha" name="fecha" type="date" required>
-          </div>
-
-          <div>
-            <label for="contacto">Alias de contacto</label>
-            <input id="contacto" name="contacto" type="text" placeholder="Ej.: EstudianteAzul" aria-describedby="ayuda-contacto" required>
-            <p id="ayuda-contacto">Usa un alias que permita identificarte. Evita publicar datos personales sensibles.</p>
-          </div>
-
-          <p>Estado: <strong>Activo</strong></p>
-          <input type="hidden" name="estado" value="activo">
-        </fieldset>
-
-        <div id="error-formulario" role="alert"></div>
-        <div id="mensaje-formulario" role="status" aria-live="polite"></div>
-        <button id="guardar-reporte" type="submit" disabled>Guardar reporte</button>
-        <button type="reset">Limpiar formulario</button>
-      </form>
-    </section>
-
     <section class="panel detalle-panel" id="detalle-reporte" aria-labelledby="titulo-detalle">
       <h2 id="titulo-detalle">Detalle del reporte</h2>
       <p id="ayuda-detalle">Selecciona un reporte de la lista para consultar todos sus datos.</p>
       <div id="contenido-detalle"></div>
       <div id="error-detalle" role="alert"></div>
     </section>
-    </div>
     <section id="ayuda" class="help-section" aria-labelledby="titulo-ayuda">
-      <div><p class="eyebrow">UNA COMUNIDAD QUE SE CUIDA</p><h2 id="titulo-ayuda">¿Encontraste algo? Puedes cambiar el día de alguien.</h2><p>Describe el objeto y el lugar con claridad. Al recuperarlo, marca el reporte como devuelto para mantener la información al día.</p></div><a class="button" href="#nuevo-reporte">Crear un reporte <span aria-hidden="true">↗</span></a>
+      <div><p class="eyebrow">UNA COMUNIDAD QUE SE CUIDA</p><h2 id="titulo-ayuda">¿Encontraste algo? Puedes cambiar el día de alguien.</h2><p>Describe el objeto y el lugar con claridad. Al recuperarlo, marca el reporte como devuelto para mantener la información al día.</p></div><a class="button" href="reportar.html">Crear un reporte <span aria-hidden="true">↗</span></a>
       <details id="contacto-ayuda"><summary>Contacto y ayuda</summary><p>Para coordinar una devolución, consulta el alias de contacto en el detalle del reporte. Si necesitas acompañamiento en el campus, acude al personal de atención de tu sede.</p></details>
       <details id="terminos"><summary>Términos de uso</summary><p>Publica información veraz sobre objetos perdidos o encontrados. Verifica la propiedad antes de entregar un elemento y marca el reporte como devuelto cuando finalice la entrega.</p></details>
       <details id="privacidad"><summary>Privacidad</summary><p>Usa un alias y evita publicar teléfonos, direcciones, números de identificación u otros datos sensibles. No incluyas información personal visible en las fotografías.</p></details>
