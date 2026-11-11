@@ -3,3 +3,6 @@ Thumbs.db
 .vscode/
 .env
 *.log
+node_modules/
+data/*.db
+data/*.db-*

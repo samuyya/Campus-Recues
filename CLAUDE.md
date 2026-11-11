@@ -110,7 +110,7 @@ Mensaje:
 
 ## Persistencia
 
-La información debe almacenarse localmente para conservar los reportes después de actualizar o cerrar la página.
+Los reportes se guardan en una base de datos (SQLite) a través de un backend, y se conservan después de actualizar o cerrar la página, y desde cualquier navegador que abra la app.
 
 ## Criterios de éxito
 
@@ -139,44 +139,61 @@ Baja prioridad:
 - Funciones adicionales que no hagan parte del reto
 ## Stack
 
-- HTML5 + CSS3 + JavaScript puro (vanilla). Sin frameworks, sin Node, sin build, sin dependencias.
-- Persistencia: `localStorage`, bajo una sola llave (`sigep_reportes`) con un arreglo de reportes en JSON.
-- Sin backend, sin base de datos, sin login y sin servicios externos.
-- Se ejecuta abriendo `index.html` en el navegador (doble clic). Probar en Chrome y en vista de celular.
+- Backend: Node.js (v22 o superior) + Express. Única dependencia de npm: `express`.
+- Base de datos: SQLite con el módulo integrado `node:sqlite` (no se instala nada extra). La BD es un archivo local `data/sigep.db`, se crea sola al arrancar.
+- Frontend: HTML5 + CSS3 + JavaScript puro (vanilla), servido por el mismo Express desde la carpeta `public/`. Sin frameworks ni build. Se comunica con el backend usando `fetch`.
+- Sin login, sin servicios externos, sin nube. Todo corre en el portátil con un solo comando.
+- Arranque: `npm install` una vez y luego `npm start` (abre en `http://localhost:3000`).
 
 ### Estructura de archivos
 
 ```
-index.html      pantallas y formulario
-css/styles.css  estilos (responsive, colores de estado)
-js/storage.js   leer y guardar en localStorage (única parte que toca localStorage)
-js/reportes.js  lógica: crear, validar, filtrar, marcar devuelto
-js/ui.js        pintar listas, detalle, mensajes de error, eventos
-js/app.js       arranque
+server.js            arranca Express y sirve public/
+db.js                abre SQLite, crea la tabla, funciones de consulta
+routes/reportes.js   rutas de la API
+public/index.html    pantallas y formulario
+public/css/styles.css
+public/js/api.js     llamadas fetch al backend (única parte que habla con la API)
+public/js/ui.js      pintar listas, detalle, mensajes de error, eventos
+public/js/app.js     arranque del frontend
+data/                aquí vive sigep.db (no se sube a GitHub)
 README.md
 proceso-ia.md
 ```
 
+### API (REST, JSON)
+
+- `GET    /api/reportes?tipo=&categoria=&ubicacion=&estado=`  lista y filtra
+- `GET    /api/reportes/:id`                                  detalle
+- `POST   /api/reportes`                                      crea un reporte
+- `PATCH  /api/reportes/:id/devuelto`                         marca como devuelto
+
+Errores de validación: responder `400` con `{ "error": "mensaje claro en español" }` usando los textos de la sección "Casos de error". La validación se hace en el backend (obligatoria) y también en el frontend (para dar aviso rápido).
+
+### Tabla `reportes`
+
+`id` (entero, autoincremental), `tipo` (`perdido` | `encontrado`), `nombre`, `categoria`, `descripcion`, `ubicacion`, `fecha` (`AAAA-MM-DD`), `contacto`, `estado` (`activo` | `devuelto`), `foto` (texto base64, puede ser vacío), `creado_en`.
+
 ### Restricciones técnicas
 
-- Funciones cortas, una responsabilidad cada una; la lógica (validar, filtrar) separada de la parte visual.
-- Cada reporte tiene un `id` único (por ejemplo `Date.now()`).
-- Fechas guardadas como texto `AAAA-MM-DD`.
-- Todo texto que escribe el usuario se muestra con `textContent`, nunca con `innerHTML` (evita inyectar HTML).
-- Foto opcional: se reduce con `canvas` (máx. ~800 px de ancho) y se guarda como texto base64 en el reporte. `localStorage` tiene límite (~5 MB): si se llena, mostrar un mensaje amable y no perder los demás datos.
-- Si `localStorage` está dañado o no disponible, la app no se cae: arranca con lista vacía.
-- Cada cambio debe probarse recargando la página (F5) para confirmar que los datos persisten.
+- Consultas SQL siempre con parámetros (`?`), nunca armando el texto con las variables del usuario (evita inyección SQL).
+- En el frontend, todo texto del usuario se muestra con `textContent`, nunca con `innerHTML`.
+- Funciones cortas, una responsabilidad cada una. La validación vive en una sola función del backend.
+- Foto opcional: el frontend la reduce con `canvas` (máx. ~800 px de ancho) y la manda como base64. Límite de tamaño de la petición en Express: 2 MB; si se pasa, responder un error amable.
+- Si el servidor no responde, el frontend muestra "No se pudo conectar. Intenta de nuevo." y no se queda en blanco.
+- Cada cambio se prueba recargando la página (F5) y también reiniciando el servidor, para confirmar que los datos persisten en la BD.
+- `data/*.db` y `node_modules/` van en `.gitignore`.
 
 ### Datos de ejemplo
 
-Incluir 4 o 5 reportes ficticios para la demo (nombres y alias inventados, sin datos personales reales).
+Un script `npm run seed` carga 4 o 5 reportes ficticios para la demo (nombres y alias inventados, sin datos personales reales).
 
 ### Cómo probar
 
-1. Abrir `index.html`.
+1. `npm install` y `npm start`; abrir `http://localhost:3000`.
 2. Crear un reporte "Encontrado" y uno "Perdido".
-3. Intentar guardar con descripción o ubicación vacía: deben salir los mensajes de error.
+3. Intentar guardar con descripción o ubicación vacía: deben salir los mensajes de error (también probando la API directo, sin pasar por el formulario).
 4. Filtrar por categoría, ubicación y tipo; probar un filtro sin resultados.
 5. Marcar un reporte como devuelto y confirmar que cambia de color.
-6. Recargar (F5): todo debe seguir igual.
-7. Probar con texto muy largo y con la ventana angosta (celular).
+6. Recargar (F5) y luego reiniciar el servidor: todo debe seguir igual.
+7. Probar con texto muy largo, comillas y símbolos raros, y con la ventana angosta (celular).
