@@ -102,6 +102,12 @@ window.SigepUI = (() => {
       boton.id = 'marcar-devuelto';
       contenido.append(boton);
     }
+    if (reporte.tipo === 'encontrado' && reporte.estado === 'activo') {
+      const reclamar = crearTexto('button', 'Este objeto es mío', 'claim-open-button');
+      reclamar.type = 'button';
+      reclamar.id = 'reclamar-objeto';
+      contenido.append(reclamar);
+    }
     document.getElementById('ayuda-detalle').textContent = '';
     document.getElementById('error-detalle').textContent = '';
     const titulo = document.getElementById('titulo-detalle');

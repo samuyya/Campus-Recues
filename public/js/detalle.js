@@ -15,6 +15,8 @@
       if (!id || !/^\d+$/.test(id)) throw new Error('Selecciona un reporte desde la página Buscar.');
       reporteActual = await window.SigepAPI.obtener(id);
       window.SigepUI.mostrarDetalle(reporteActual, false);
+      const ubicacion = window.SigepMapa.separarUbicacion(reporteActual.ubicacion);
+      window.SigepMapa.actualizar(document.querySelector('[data-minimapa]'), ubicacion.sede, ubicacion.lugar);
     } catch (problema) {
       window.SigepUI.mostrarErrorDetalle(problema.message);
       reintentar.hidden = !id || !/^\d+$/.test(id);

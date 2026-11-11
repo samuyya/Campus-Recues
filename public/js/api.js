@@ -92,5 +92,13 @@ window.SigepAPI = (() => {
     return solicitar(`${BASE}/${encodeURIComponent(id)}/devuelto`, { method: 'PATCH' });
   }
 
-  return Object.freeze({ listar, obtener, crear, marcarDevuelto, validarReporte });
+  function reclamar(id, datos) {
+    return solicitar(`${BASE}/${encodeURIComponent(id)}/reclamaciones`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    });
+  }
+
+  return Object.freeze({ listar, obtener, crear, marcarDevuelto, validarReporte, reclamar });
 })();

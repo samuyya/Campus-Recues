@@ -17,7 +17,7 @@
 
   function leerFiltros() {
     const filtros = {};
-    for (const campo of ['q', 'categoria', 'ubicacion', 'tipo', 'estado']) {
+    for (const campo of ['q', 'categoria', 'ubicacion', 'tipo', 'estado', 'sede']) {
       const valor = formulario.elements.namedItem(campo).value.trim();
       if (valor) filtros[campo] = valor;
     }
@@ -95,7 +95,8 @@
       const palabras = normalizar(filtros.q).split(/\s+/).filter(Boolean);
       resultados = reportes.filter(reporte => {
         const texto = normalizar(`${reporte.nombre} ${reporte.descripcion} ${reporte.categoria} ${reporte.ubicacion}`);
-        return palabras.every(palabra => texto.includes(palabra));
+        const mismaSede = !filtros.sede || window.SigepMapa.separarUbicacion(reporte.ubicacion).sede === filtros.sede;
+        return mismaSede && palabras.every(palabra => texto.includes(palabra));
       });
       pintarResultados();
     } catch (problema) {
@@ -132,7 +133,7 @@
   orden.addEventListener('change', () => { pagina = 1; pintarResultados(); });
   reintentar.addEventListener('click', cargarReportes);
   const parametros = new URLSearchParams(window.location.search);
-  for (const campo of ['q', 'categoria', 'ubicacion', 'tipo', 'estado']) {
+  for (const campo of ['q', 'categoria', 'ubicacion', 'tipo', 'estado', 'sede']) {
     if (parametros.has(campo) && !(recuperados && campo === 'estado')) {
       formulario.elements.namedItem(campo).value = parametros.get(campo);
     }
@@ -141,5 +142,6 @@
   const paginaInicial = Number(parametros.get('pagina'));
   if (Number.isSafeInteger(paginaInicial) && paginaInicial > 0) pagina = paginaInicial;
   filtrosAplicados = leerFiltros();
+  window.SigepMapa.actualizar(document.querySelector('[data-minimapa]'), formulario.elements.namedItem('sede').value, formulario.elements.namedItem('ubicacion').value);
   cargarReportes();
 })();

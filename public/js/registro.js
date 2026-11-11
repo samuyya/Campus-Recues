@@ -28,6 +28,7 @@
     for (const campo of ['tipo', 'nombre', 'categoria', 'descripcion', 'ubicacion', 'fecha', 'contacto']) {
       reporte[campo] = formulario.elements.namedItem(campo).value.trim();
     }
+    if (reporte.ubicacion) reporte.ubicacion = window.SigepMapa.completarUbicacion(formulario.elements.namedItem('sede').value, reporte.ubicacion);
     reporte.foto = foto;
     return reporte;
   }
@@ -124,7 +125,7 @@
     mensaje.textContent = '';
     enlaceCreado.hidden = true;
     const reporte = leerReporte();
-    const validacion = window.SigepAPI.validarReporte(reporte) || errorFoto.textContent;
+    const validacion = window.SigepAPI.validarReporte(reporte) || (!formulario.elements.namedItem('sede').value ? 'Selecciona la sede donde se perdió o encontró el objeto.' : '') || errorFoto.textContent;
     if (validacion) {
       error.textContent = validacion;
       error.focus();

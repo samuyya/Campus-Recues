@@ -103,4 +103,16 @@ router.patch('/:id/devuelto', (req, res) => {
   res.json(reporte);
 });
 
+router.post('/:id/reclamaciones', (req, res) => {
+  const id = leerId(req.params.id);
+  const reporte = id === null ? undefined : db.obtener(id);
+  if (!reporte) return res.status(404).json({ error: 'No se encontró el reporte solicitado.' });
+  if (reporte.tipo !== 'encontrado' || reporte.estado !== 'activo') {
+    return res.status(409).json({ error: 'Solo puedes reclamar objetos encontrados que estén activos.' });
+  }
+  const resultado = require('../validacion-reclamacion').validarReclamacion(req.body);
+  if (resultado.error) return res.status(400).json({ error: resultado.error });
+  res.status(201).json(db.crearReclamacion(id, resultado.datos));
+});
+
 module.exports = router;

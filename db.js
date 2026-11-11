@@ -23,6 +23,34 @@ db.exec(`
   )
 `);
 
+// Los datos de reclamantes se guardan aparte de los reportes públicos.
+db.exec(`
+  CREATE TABLE IF NOT EXISTS reclamaciones (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reporte_id INTEGER NOT NULL REFERENCES reportes(id),
+    nombre TEXT NOT NULL,
+    tipo_documento TEXT NOT NULL,
+    documento TEXT NOT NULL,
+    telefono TEXT NOT NULL DEFAULT '',
+    correo TEXT NOT NULL DEFAULT '',
+    estado TEXT NOT NULL DEFAULT 'pendiente',
+    creado_en TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(reporte_id, tipo_documento, documento)
+  )
+`);
+
+function crearReclamacion(reporteId, datos) {
+  db.prepare(`INSERT INTO reclamaciones
+    (reporte_id, nombre, tipo_documento, documento, telefono, correo)
+    VALUES (?, ?, ?, ?, ?, ?)
+    ON CONFLICT(reporte_id, tipo_documento, documento) DO NOTHING`)
+    .run(reporteId, datos.nombre, datos.tipo_documento, datos.documento, datos.telefono, datos.correo);
+  // Solo se devuelve el comprobante; nunca los datos de identificación o contacto.
+  return db.prepare(`SELECT id, estado FROM reclamaciones
+    WHERE reporte_id = ? AND tipo_documento = ? AND documento = ?`)
+    .get(reporteId, datos.tipo_documento, datos.documento);
+}
+
 // Escapa % y _ para que el texto del usuario se busque literalmente en LIKE.
 function escaparLike(texto) {
   return texto.replace(/[\\%_]/g, '\\$&');
@@ -73,4 +101,4 @@ function marcarDevuelto(id) {
   return obtener(id);
 }
 
-module.exports = { listar, obtener, insertar, marcarDevuelto };
+module.exports = { listar, obtener, insertar, marcarDevuelto, crearReclamacion };
