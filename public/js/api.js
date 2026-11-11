@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 window.SigepAPI = (() => {
   const BASE = '/api/reportes';
@@ -53,15 +53,18 @@ window.SigepAPI = (() => {
     return solicitar(`${BASE}/${encodeURIComponent(id)}`);
   }
 
-  // Devuelve un mensaje de error o una cadena vacía si el reporte es válido.
-  // Otros campos obligatorios tienen prioridad; después descripción y ubicación.
+  // Usa la misma prioridad de campos faltantes que el backend.
   function validarReporte(reporte = {}) {
-    const texto = campo => String(reporte[campo] ?? '').trim();
-    if (['tipo', 'nombre', 'categoria', 'fecha', 'contacto'].some(campo => !texto(campo))) {
-      return 'Por favor completa todos los campos obligatorios.';
+    const texto = campo => typeof reporte[campo] === 'string' ? reporte[campo].trim() : '';
+    const campos = ['tipo', 'nombre', 'categoria', 'descripcion', 'ubicacion', 'fecha', 'contacto'];
+    const faltantes = campos.filter(campo => !texto(campo));
+    if (faltantes.length === 1 && faltantes[0] === 'descripcion') {
+      return 'Debes incluir una descripción del objeto.';
     }
-    if (!texto('descripcion')) return 'Debes incluir una descripción del objeto.';
-    if (!texto('ubicacion')) return 'Debes indicar dónde se perdió o encontró el objeto.';
+    if (faltantes.length === 1 && faltantes[0] === 'ubicacion') {
+      return 'Debes indicar dónde se perdió o encontró el objeto.';
+    }
+    if (faltantes.length > 0) return 'Por favor completa todos los campos obligatorios.';
     if (!['perdido', 'encontrado'].includes(texto('tipo'))) {
       return 'Selecciona un tipo de reporte válido.';
     }
