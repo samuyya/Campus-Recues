@@ -3,33 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Reporta objetos perdidos o encontrados en el campus y ayuda a devolverlos a sus propietarios.">
-  <title>SIGEP | Objetos perdidos del campus</title>
+  <meta name="theme-color" content="#003B7A">
+  <meta name="description" content="SIGEP: reporta, busca y recupera elementos perdidos en la comunidad de la Institución Universitaria ITM.">
+  <title>SIGEP | Comunidad ITM</title>
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js" defer></script>
   <script src="js/ui.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
-<body>
-  <a href="#contenido">Saltar al contenido principal</a>
-
-  <header>
-    <p>Objetos perdidos del campus</p>
-    <h1>SIGEP</h1>
-    <p>Un lugar para reportar, encontrar y recuperar tus objetos.</p>
-    <nav aria-label="Navegación principal">
-      <a href="#reportes">Consultar reportes</a>
-      <a href="#nuevo-reporte">Crear un reporte</a>
-    </nav>
+<body id="inicio">
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#inicio" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
+      <nav aria-label="Navegación principal">
+        <a class="nav-link is-active" href="#inicio" aria-current="page">Inicio</a>
+        <a class="nav-link" href="#nuevo-reporte">Reportar</a>
+        <a class="nav-link" href="#reportes">Buscar</a>
+        <a class="nav-link" href="#reportes" id="nav-recuperados">Recuperados</a>
+        <a class="nav-link" href="#ayuda">Ayuda</a>
+      </nav>
+      <div class="institution"><img id="logo-itm" alt="Institución Universitaria ITM" hidden><span id="logo-alternativo"><strong>ITM</strong><small>Institución Universitaria</small></span></div>
+    </div>
   </header>
-
   <main id="contenido">
-    <p>Reporta un objeto perdido o encontrado y consulta los reportes del campus.</p>
+    <section class="hero" aria-labelledby="titulo-hero">
+      <div class="hero-copy"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> JUNTOS, HACEMOS COMUNIDAD</p>
+        <h1 id="titulo-hero">¿Necesitas reportar<br>o recuperar un elemento <span>dentro del campus?</span></h1>
+        <p class="hero-description">SIGEP es la plataforma institucional del ITM para el registro, consulta y recuperación de elementos perdidos y encontrados dentro de las instalaciones universitarias.</p>
+        <div class="hero-actions"><a class="button" href="#nuevo-reporte" data-reportar="perdido"><span aria-hidden="true">＋</span> Registrar elemento perdido</a><a class="button button-green" href="#nuevo-reporte" data-reportar="encontrado"><span aria-hidden="true">✓</span> Registrar elemento encontrado</a></div>
+        <p class="hero-note"><span aria-hidden="true">♡</span> Un pequeño gesto puede hacer una gran diferencia.</p>
+      </div>
+      <figure class="hero-art"><img src="assets/objetos-campus.svg" alt="Ilustración de una mochila, un portátil, llaves, un cuaderno y un termo" width="640" height="460"><figcaption>Conectando a la comunidad ITM<br><strong>con sus pertenencias</strong></figcaption></figure>
+    </section>
+    <section class="how-section" aria-labelledby="titulo-como">
+      <div class="section-heading"><div><p class="eyebrow">ES FÁCIL AYUDARNOS</p><h2 id="titulo-como">¿Cómo funciona?</h2></div><p>Cuatro pasos para volver a encontrarlo.</p></div>
+      <ol class="steps">
+        <li><span class="step-icon" aria-hidden="true">＋</span><div><span class="step-number">01</span><h3>Registrar</h3><p>Informa si perdiste o encontraste un elemento.</p></div></li>
+        <li><span class="step-icon" aria-hidden="true">⌕</span><div><span class="step-number">02</span><h3>Buscar</h3><p>Consulta y filtra los reportes existentes.</p></div></li>
+        <li><span class="step-icon" aria-hidden="true">◎</span><div><span class="step-number">03</span><h3>Encontrar</h3><p>Revisa coincidencias y visualiza los detalles.</p></div></li>
+        <li><span class="step-icon" aria-hidden="true">✓</span><div><span class="step-number">04</span><h3>Recuperar</h3><p>Marca el elemento como recuperado.</p></div></li>
+      </ol>
+    </section>
+    <section class="stats" aria-label="Estadísticas de la comunidad">
+      <article><span class="stat-icon" aria-hidden="true">▤</span><div><strong id="total-activos">—</strong><h2>Reportes activos</h2></div></article>
+      <article><span class="stat-icon green" aria-hidden="true">⌕</span><div><strong id="total-encontrados">—</strong><h2>Elementos encontrados</h2></div></article>
+      <article><span class="stat-icon teal" aria-hidden="true">✓</span><div><strong id="total-recuperados">—</strong><h2>Elementos recuperados</h2></div></article>
+    </section>
     <div id="mensaje-general" role="status" aria-live="polite"></div>
     <div id="error-general" role="alert"></div>
     <button id="reintentar-conexion" type="button" hidden>Reintentar conexión</button>
-
     <section id="reportes" aria-labelledby="titulo-reportes">
-      <h2 id="titulo-reportes">Explora los reportes</h2>
+      <div class="section-heading"><div><p class="eyebrow">ENCUENTRA LO QUE BUSCAS</p><h2 id="titulo-reportes">Últimos reportes</h2></div><a href="#reportes" id="ver-todos">Ver todos los reportes <span aria-hidden="true">↗</span></a></div>
       <p>Busca si alguien encontró tu objeto o reportó uno que tú encontraste.</p>
 
       <form id="formulario-filtros" aria-describedby="ayuda-filtros">
@@ -74,7 +99,7 @@
       <div id="lista-reportes" aria-label="Listado de reportes"></div>
     </section>
 
-    <section id="nuevo-reporte" aria-labelledby="titulo-formulario">
+    <div class="gestion-grid"><section class="panel" id="nuevo-reporte" aria-labelledby="titulo-formulario">
       <h2 id="titulo-formulario">Crea un reporte</h2>
       <p>Cuéntanos qué perdiste o encontraste para ayudar a reunir cada objeto con su dueño.</p>
       <p id="ayuda-obligatorios">Todos los campos son obligatorios. El estado inicial será Activo.</p>
@@ -143,17 +168,20 @@
       </form>
     </section>
 
-    <section id="detalle-reporte" aria-labelledby="titulo-detalle">
+    <section class="panel detalle-panel" id="detalle-reporte" aria-labelledby="titulo-detalle">
       <h2 id="titulo-detalle">Detalle del reporte</h2>
       <p id="ayuda-detalle">Selecciona un reporte de la lista para consultar todos sus datos.</p>
       <div id="contenido-detalle"></div>
       <div id="error-detalle" role="alert"></div>
     </section>
+    </div>
+    <section id="ayuda" class="help-section" aria-labelledby="titulo-ayuda">
+      <div><p class="eyebrow">UNA COMUNIDAD QUE SE CUIDA</p><h2 id="titulo-ayuda">¿Encontraste algo? Puedes cambiar el día de alguien.</h2><p>Describe el objeto y el lugar con claridad. Al recuperarlo, marca el reporte como devuelto para mantener la información al día.</p></div><a class="button" href="#nuevo-reporte">Crear un reporte <span aria-hidden="true">↗</span></a>
+      <details id="contacto-ayuda"><summary>Contacto y ayuda</summary><p>Para coordinar una devolución, consulta el alias de contacto en el detalle del reporte. Si necesitas acompañamiento en el campus, acude al personal de atención de tu sede.</p></details>
+      <details id="terminos"><summary>Términos de uso</summary><p>Publica información veraz sobre objetos perdidos o encontrados. Verifica la propiedad antes de entregar un elemento y marca el reporte como devuelto cuando finalice la entrega.</p></details>
+      <details id="privacidad"><summary>Privacidad</summary><p>Usa un alias y evita publicar teléfonos, direcciones, números de identificación u otros datos sensibles. No incluyas información personal visible en las fotografías.</p></details>
+    </section>
   </main>
-
-  <footer>
-    <p>SIGEP · Sistema de Gestión de Elementos Perdidos</p>
-    <p>Ayudémonos a recuperar lo que importa.</p>
-  </footer>
+  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="#inicio">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="#contacto-ayuda">Contacto</a><a href="#terminos">Términos de uso</a><a href="#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
 </body>
 </html>
