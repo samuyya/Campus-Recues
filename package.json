@@ -1,0 +1,17 @@
+{
+  "name": "sigep",
+  "version": "1.0.0",
+  "description": "Sistema de Gestion de Elementos Perdidos del campus",
+  "main": "server.js",
+  "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
