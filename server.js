@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+require('./db'); // abre la BD y crea la tabla al arrancar
 
 const app = express();
 const PORT = process.env.PORT || 3000;
