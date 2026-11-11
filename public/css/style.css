@@ -524,14 +524,42 @@ button[type=reset]:hover {
   padding:4px 10px;
   box-shadow:0 2px 8px #17334d10
 }
-.tarjeta.activo .estado-reporte {
-  color:#91620b
+/* Estado de la tarjeta: ACTIVO = ámbar, DEVUELTO = verde. El estado manda sobre
+   cualquier otro color de la tarjeta (el recuadro de arriba ya no depende de la posición). */
+.tarjeta.activo,
+.tarjeta.devuelto {
+  border-top-width:5px
 }
-.tarjeta.devuelto .estado-reporte {
-  color:#13713c
+.tarjeta.activo {
+  border-color:#e7c98a;
+  border-top-color:#d97706;
+  background:#fffaf0
 }
 .tarjeta.devuelto {
-  border-color:#b9d8c2
+  border-color:#9fd1ae;
+  border-top-color:#16a34a;
+  background:#f0f9f3
+}
+.tarjeta .estado-reporte {
+  font-size:11px;
+  font-weight:700;
+  padding:4px 11px;
+  box-shadow:none
+}
+.tarjeta.activo .estado-reporte {
+  color:#7a4b00;
+  background:#ffefc7;
+  border:1px solid #e7b04a
+}
+.tarjeta.devuelto .estado-reporte {
+  color:#fff;
+  background:#166534;
+  border:1px solid #166534
+}
+/* La marca ✓ evita que el estado dependa solo del color. */
+.tarjeta.devuelto .estado-reporte::before {
+  content:"✓ ";
+  content:"✓ " / ""
 }
 .tarjeta>button {
   order:4;
@@ -571,6 +599,19 @@ button[type=reset]:hover {
 }
 .tarjeta:nth-child(3n) .report-media {
   background:#e8f1ef
+}
+/* El color del recuadro sigue al estado (va después de las reglas por posición). */
+.tarjeta.activo .report-media {
+  background:#fdf0d5
+}
+.tarjeta.activo .report-media span {
+  color:#b45309
+}
+.tarjeta.devuelto .report-media {
+  background:#d9efe0
+}
+.tarjeta.devuelto .report-media span {
+  color:#166534
 }
 .gestion-grid {
   display:grid;
