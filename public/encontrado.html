@@ -7,6 +7,7 @@
   <title>Registrar reporte | SIGEP</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js" defer></script>
+  <script src="js/comun.js" defer></script>
   <script src="js/registro.js" defer></script>
 </head>
 <body class="registration-page" data-tipo="encontrado">
@@ -17,9 +18,9 @@
       <nav aria-label="Navegación principal">
         <a class="nav-link" href="index.html">Inicio</a>
         <a class="nav-link is-active" href="reportar.html" aria-current="page">Reportar</a>
-        <a class="nav-link" href="index.html#reportes">Buscar</a>
-        <a class="nav-link" href="index.html?estado=devuelto#reportes">Recuperados</a>
-        <a class="nav-link" href="index.html#ayuda">Ayuda</a>
+        <a class="nav-link" href="buscar.html">Buscar</a>
+        <a class="nav-link" href="recuperados.html">Recuperados</a>
+        <a class="nav-link" href="ayuda.html">Ayuda</a>
       </nav>
       <div class="institution"><img id="logo-itm" src="assets/logo-itm.jpeg" alt="ITM Institución Universitaria, reacreditada en alta calidad" width="474" height="392"></div>
     </div>
@@ -49,7 +50,7 @@
           <div class="registration-row"><div><label for="fecha">Fecha <span class="required-mark" aria-hidden="true">*</span></label><input id="fecha" name="fecha" type="date" required></div><div><label for="contacto">Alias de contacto <span class="required-mark" aria-hidden="true">*</span></label><input id="contacto" name="contacto" placeholder="Ejemplo: Nico17, MariaITM…" required></div></div>
           <div class="registration-row photo-state"><div><label for="foto">Fotografía <span class="optional-label">(opcional)</span></label><div class="photo-dropzone" id="zona-foto"><span aria-hidden="true">▧</span><p>Selecciona una imagen de tu dispositivo</p><input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="ayuda-foto"><small id="ayuda-foto">JPG, PNG o WEBP · máximo 3 MB</small></div><button type="button" id="quitar-foto" class="text-button" hidden>Quitar fotografía</button><p id="error-foto" role="alert"></p></div><div><p class="field-label">Estado</p><span class="state-pill">♧ &nbsp; Activo</span><p class="state-help">El estado se asigna automáticamente al crear el reporte.</p></div></div>
         </fieldset>
-        <div id="error-registro" role="alert" tabindex="-1"></div><div id="mensaje-registro" role="status" aria-live="polite"></div><a id="ver-reporte-creado" href="index.html#reportes" class="success-link" hidden>Ver reporte registrado →</a>
+        <div id="error-registro" role="alert" tabindex="-1"></div><div id="mensaje-registro" role="status" aria-live="polite"></div><a id="ver-reporte-creado" href="buscar.html" class="success-link" hidden>Ver reporte registrado →</a>
         <div class="registration-actions"><a class="button button-secondary" href="index.html">Cancelar</a><button id="registrar-reporte" type="submit"><span aria-hidden="true">↗</span> Registrar reporte</button></div>
       </form>
     </section>
@@ -61,6 +62,6 @@
       <section class="registration-tips" aria-labelledby="titulo-consejos"><h2 id="titulo-consejos"><span aria-hidden="true">☼</span> Ten en cuenta</h2><ul><li>La información debe ser clara y detallada.</li><li>Incluye características que faciliten la identificación.</li><li>Usa un alias de contacto.</li><li>La fotografía es opcional, pero puede ayudar.</li><li>El reporte será visible para la comunidad ITM.</li></ul></section>
     </aside>
   </main>
-  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="index.html">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="index.html#contacto-ayuda">Contacto</a><a href="index.html#terminos">Términos de uso</a><a href="index.html#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
+  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="index.html">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="ayuda.html#contacto-ayuda">Contacto</a><a href="ayuda.html#terminos">Términos de uso</a><a href="ayuda.html#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
 </body>
 </html>

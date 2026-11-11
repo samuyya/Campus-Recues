@@ -9,19 +9,20 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js" defer></script>
   <script src="js/ui.js" defer></script>
+  <script src="js/comun.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 <body id="inicio">
   <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#inicio" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
+      <a class="brand" href="index.html" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
       <nav aria-label="Navegación principal">
-        <a class="nav-link is-active" href="#inicio" aria-current="page">Inicio</a>
+        <a class="nav-link is-active" href="index.html" aria-current="page">Inicio</a>
         <a class="nav-link" href="reportar.html">Reportar</a>
-        <a class="nav-link" href="#reportes">Buscar</a>
-        <a class="nav-link" href="#reportes" id="nav-recuperados">Recuperados</a>
-        <a class="nav-link" href="#ayuda">Ayuda</a>
+        <a class="nav-link" href="buscar.html">Buscar</a>
+        <a class="nav-link" href="recuperados.html">Recuperados</a>
+        <a class="nav-link" href="ayuda.html">Ayuda</a>
       </nav>
       <div class="institution"><img id="logo-itm" src="assets/logo-itm.jpeg" alt="ITM Institución Universitaria, reacreditada en alta calidad" width="474" height="392"></div>
     </div>
@@ -31,7 +32,7 @@
       <div class="hero-copy"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> JUNTOS, HACEMOS COMUNIDAD</p>
         <h1 id="titulo-hero">¿Necesitas reportar <br>o recuperar un elemento <span>dentro del campus?</span></h1>
         <p class="hero-description">SIGEP es la plataforma institucional del ITM para el registro, consulta y recuperación de elementos perdidos y encontrados dentro de las instalaciones universitarias.</p>
-        <div class="hero-actions"><a class="button" href="reportar.html"><span aria-hidden="true">＋</span> Registrar elemento perdido</a><a class="button button-green" href="encontrado.html"><span aria-hidden="true">✓</span> Registrar elemento encontrado</a></div>
+        <div class="hero-actions"><a class="button" href="reportar.html"><span aria-hidden="true">＋</span> Buscar elemento perdido</a><a class="button button-green" href="encontrado.html"><span aria-hidden="true">✓</span> Registrar elemento encontrado</a></div>
         <p class="hero-note"><span aria-hidden="true">♡</span> Un pequeño gesto puede hacer una gran diferencia.</p>
       </div>
       <figure class="hero-art"><img src="assets/objetos-campus.svg" alt="Ilustración de una mochila, un portátil, llaves, un cuaderno y un termo" width="640" height="460"><figcaption>Conectando a la comunidad ITM<br><strong>con sus pertenencias</strong></figcaption></figure>
@@ -54,64 +55,14 @@
     <div id="error-general" role="alert"></div>
     <button id="reintentar-conexion" type="button" hidden>Reintentar conexión</button>
     <section id="reportes" aria-labelledby="titulo-reportes">
-      <div class="section-heading"><div><p class="eyebrow">ENCUENTRA LO QUE BUSCAS</p><h2 id="titulo-reportes">Últimos reportes</h2></div><a href="#reportes" id="ver-todos">Ver todos los reportes <span aria-hidden="true">↗</span></a></div>
+      <div class="section-heading"><div><p class="eyebrow">ENCUENTRA LO QUE BUSCAS</p><h2 id="titulo-reportes">Últimos reportes</h2></div><a href="buscar.html" id="ver-todos">Ver todos los reportes <span aria-hidden="true">↗</span></a></div>
       <p>Busca si alguien encontró tu objeto o reportó uno que tú encontraste.</p>
-
-      <form id="formulario-filtros" aria-describedby="ayuda-filtros">
-        <fieldset>
-          <legend>Filtrar reportes</legend>
-          <p id="ayuda-filtros">Puedes combinar categoría, ubicación y tipo de reporte.</p>
-
-          <div>
-            <label for="filtro-categoria">Categoría</label>
-            <select id="filtro-categoria" name="categoria">
-              <option value="">Todas las categorías</option>
-              <option value="Electrónicos">Electrónicos</option>
-              <option value="Mochilas y bolsos">Mochilas y bolsos</option>
-              <option value="Documentos">Documentos</option>
-              <option value="Llaves">Llaves</option>
-              <option value="Botellas y termos">Botellas y termos</option>
-              <option value="Ropa">Ropa</option>
-              <option value="Otros">Otros</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="filtro-ubicacion">Ubicación</label>
-            <input id="filtro-ubicacion" name="ubicacion" type="search" placeholder="Ej.: Biblioteca">
-          </div>
-
-          <div>
-            <label for="filtro-tipo">Tipo de reporte</label>
-            <select id="filtro-tipo" name="tipo">
-              <option value="">Todos los tipos</option>
-              <option value="perdido">Perdido</option>
-              <option value="encontrado">Encontrado</option>
-            </select>
-          </div>
-
-          <button id="aplicar-filtros" type="submit" disabled>Aplicar filtros</button>
-          <button type="reset">Limpiar filtros</button>
-        </fieldset>
-      </form>
 
       <div id="mensaje-listado" role="status" aria-live="polite"></div>
       <div id="lista-reportes" aria-label="Listado de reportes"></div>
     </section>
 
-    <section class="panel detalle-panel" id="detalle-reporte" aria-labelledby="titulo-detalle">
-      <h2 id="titulo-detalle">Detalle del reporte</h2>
-      <p id="ayuda-detalle">Selecciona un reporte de la lista para consultar todos sus datos.</p>
-      <div id="contenido-detalle"></div>
-      <div id="error-detalle" role="alert"></div>
-    </section>
-    <section id="ayuda" class="help-section" aria-labelledby="titulo-ayuda">
-      <div><p class="eyebrow">UNA COMUNIDAD QUE SE CUIDA</p><h2 id="titulo-ayuda">¿Encontraste algo? Puedes cambiar el día de alguien.</h2><p>Describe el objeto y el lugar con claridad. Al recuperarlo, marca el reporte como devuelto para mantener la información al día.</p></div><a class="button" href="reportar.html">Crear un reporte <span aria-hidden="true">↗</span></a>
-      <details id="contacto-ayuda"><summary>Contacto y ayuda</summary><p>Para coordinar una devolución, consulta el alias de contacto en el detalle del reporte. Si necesitas acompañamiento en el campus, acude al personal de atención de tu sede.</p></details>
-      <details id="terminos"><summary>Términos de uso</summary><p>Publica información veraz sobre objetos perdidos o encontrados. Verifica la propiedad antes de entregar un elemento y marca el reporte como devuelto cuando finalice la entrega.</p></details>
-      <details id="privacidad"><summary>Privacidad</summary><p>Usa un alias y evita publicar teléfonos, direcciones, números de identificación u otros datos sensibles. No incluyas información personal visible en las fotografías.</p></details>
-    </section>
-  </main>
-  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="#inicio">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="#contacto-ayuda">Contacto</a><a href="#terminos">Términos de uso</a><a href="#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
+</main>
+  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="index.html">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="ayuda.html#contacto-ayuda">Contacto</a><a href="ayuda.html#terminos">Términos de uso</a><a href="ayuda.html#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
 </body>
 </html>

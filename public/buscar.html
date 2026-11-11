@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#003B7A">
+  <title>Buscar elementos reportados | SIGEP</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/comun.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/listado.js" defer></script>
+</head>
+<body class="directory-page">
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
+      <nav aria-label="Navegación principal">
+        <a class="nav-link" href="index.html">Inicio</a>
+        <a class="nav-link" href="reportar.html">Reportar</a>
+        <a class="nav-link is-active" href="buscar.html" aria-current="page">Buscar</a>
+        <a class="nav-link" href="recuperados.html">Recuperados</a>
+        <a class="nav-link" href="ayuda.html">Ayuda</a>
+      </nav>
+      <div class="institution"><img id="logo-itm" src="assets/logo-itm.jpeg" alt="ITM Institución Universitaria, reacreditada en alta calidad" width="474" height="392"></div>
+    </div>
+  </header>
+<section class="registration-banner directory-banner" aria-labelledby="titulo-pagina"><div class="registration-banner-inner"><div><nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="index.html">Inicio</a><span aria-hidden="true">›</span><span>Buscar elemento</span></nav><h1 id="titulo-pagina">Buscar elementos reportados</h1><p>Consulta los reportes registrados dentro del campus y encuentra coincidencias con tu objeto perdido o encontrado.</p></div><div class="banner-illustration"><p>Juntos recuperamos<br><strong>lo que importa.</strong></p><img src="assets/objetos-campus.svg" alt="" width="640" height="460"></div></div></section>
+  <main id="contenido" class="directory-main" data-recuperados="false">
+    <form id="formulario-busqueda" aria-label="Buscar y filtrar reportes">
+      <div class="search-bar"><label class="visually-hidden" for="consulta">Buscar por nombre o descripción</label><span aria-hidden="true">⌕</span><input id="consulta" name="q" type="search" placeholder="Buscar por nombre del objeto, palabra clave…"><button type="submit">Buscar</button></div>
+      <fieldset class="directory-filters"><legend class="visually-hidden">Filtrar reportes</legend>
+        <div><label for="filtro-categoria">Categoría</label><select id="filtro-categoria" name="categoria"><option value="">Todas</option><option>Electrónicos</option><option>Mochilas y bolsos</option><option>Documentos</option><option>Llaves</option><option>Botellas y termos</option><option>Ropa</option><option>Otros</option></select></div>
+        <div><label for="filtro-ubicacion">Ubicación</label><input id="filtro-ubicacion" name="ubicacion" placeholder="Todas las ubicaciones"></div>
+        <div><label for="filtro-tipo">Tipo de reporte</label><select id="filtro-tipo" name="tipo"><option value="">Todos</option><option value="perdido">Perdido</option><option value="encontrado">Encontrado</option></select></div>
+        <div><label for="filtro-estado">Estado</label><select id="filtro-estado" name="estado" ><option value="">Todos</option><option value="activo">Activo</option><option value="devuelto" >Devuelto</option></select></div>
+        <button type="reset">↻ &nbsp; Limpiar filtros</button>
+      </fieldset>
+    </form>
+    <div id="error-general" role="alert"></div><button id="reintentar-conexion" type="button" hidden>Reintentar conexión</button>
+    <div class="results-heading"><p id="mensaje-listado" role="status" aria-live="polite">Cargando reportes…</p><div><label for="orden">Ordenar por:</label><select id="orden"><option value="recientes">Más recientes</option><option value="antiguos">Más antiguos</option><option value="nombre">Nombre A–Z</option></select></div></div>
+    <div id="lista-reportes" class="directory-cards" aria-label="Resultados de búsqueda" aria-busy="true"></div>
+    <section class="directory-cta"><div><h2>¿No encuentras tu objeto?</h2><p>Si no aparece en los resultados, registra un nuevo reporte para que la comunidad te ayude.</p></div><a class="button" href="reportar.html">＋ Registrar nuevo reporte</a></section>
+    <nav id="paginacion" class="pagination" aria-label="Páginas de resultados"></nav>
+  </main>
+  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="index.html">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="ayuda.html#contacto-ayuda">Contacto</a><a href="ayuda.html#terminos">Términos de uso</a><a href="ayuda.html#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
+</body>
+</html>

@@ -46,8 +46,8 @@ window.SigepUI = (() => {
     fecha.append(tiempo);
 
     tarjeta.append(fecha);
-    const verDetalle = crearTexto('button', 'Ver detalle');
-    verDetalle.type = 'button';
+    const verDetalle = crearTexto('a', 'Ver detalle →', 'card-detail-link');
+    verDetalle.href = `detalle.html?id=${encodeURIComponent(reporte.id)}`;
     verDetalle.setAttribute('aria-label', `Ver detalle de ${reporte.nombre}`);
 
     tarjeta.append(verDetalle);
@@ -90,6 +90,12 @@ window.SigepUI = (() => {
       datos.append(crearTexto('dt', etiqueta), crearTexto('dd', valor));
     }
     contenido.replaceChildren(datos);
+    if (typeof reporte.foto === 'string' && /^data:image\/(png|jpe?g|webp|gif);base64,/i.test(reporte.foto)) {
+      const foto = document.createElement('img');
+      foto.src = reporte.foto;
+      foto.alt = 'Foto de ' + reporte.nombre;
+      contenido.prepend(foto);
+    }
     if (reporte.estado === 'activo') {
       const boton = crearTexto('button', 'Marcar como devuelto');
       boton.type = 'button';
@@ -109,15 +115,5 @@ window.SigepUI = (() => {
     document.getElementById('error-detalle').textContent = mensaje;
   }
 
-  function leerFiltros() {
-    const formulario = document.getElementById('formulario-filtros');
-    const filtros = {};
-    for (const campo of ['categoria', 'ubicacion', 'tipo']) {
-      const valor = formulario.elements.namedItem(campo).value.trim();
-      if (valor) filtros[campo] = valor;
-    }
-    return filtros;
-  }
-
-  return Object.freeze({ mostrarReportes, mostrarEstadisticas, prepararDetalle, mostrarDetalle, mostrarErrorDetalle, leerFiltros });
+  return Object.freeze({ mostrarReportes, mostrarEstadisticas, prepararDetalle, mostrarDetalle, mostrarErrorDetalle });
 })();

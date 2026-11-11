@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#003B7A">
+  <title>Detalle del reporte | SIGEP</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/comun.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/detalle.js" defer></script>
+</head>
+<body class="detail-page">
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="SIGEP, inicio"><span class="brand-mark" aria-hidden="true">S<span>↗</span></span><span><strong>SIGEP</strong><small>Sistema de Gestión de<br>Elementos Perdidos</small></span></a>
+      <nav aria-label="Navegación principal">
+        <a class="nav-link" href="index.html">Inicio</a>
+        <a class="nav-link" href="reportar.html">Reportar</a>
+        <a class="nav-link is-active" href="buscar.html" aria-current="page">Buscar</a>
+        <a class="nav-link" href="recuperados.html">Recuperados</a>
+        <a class="nav-link" href="ayuda.html">Ayuda</a>
+      </nav>
+      <div class="institution"><img id="logo-itm" src="assets/logo-itm.jpeg" alt="ITM Institución Universitaria, reacreditada en alta calidad" width="474" height="392"></div>
+    </div>
+  </header>
+<section class="registration-banner directory-banner" aria-labelledby="titulo-pagina"><div class="registration-banner-inner"><div><nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="index.html">Inicio</a><span aria-hidden="true">›</span><span>Detalle del reporte</span></nav><h1 id="titulo-pagina">Detalle del reporte</h1><p>Consulta los datos del objeto y gestiona su devolución.</p></div><div class="banner-illustration"><p>Juntos recuperamos<br><strong>lo que importa.</strong></p><img src="assets/objetos-campus.svg" alt="" width="640" height="460"></div></div></section><main id="contenido" class="detail-page-main"><a class="back-link" href="buscar.html">← Volver a buscar</a><section class="panel detalle-panel" id="detalle-reporte" aria-labelledby="titulo-detalle"><h2 id="titulo-detalle">Detalle del reporte</h2><p id="ayuda-detalle" role="status" aria-live="polite">Cargando detalle…</p><div id="contenido-detalle"></div><div id="error-detalle" role="alert"></div><button id="reintentar-detalle" type="button" hidden>Reintentar</button><p id="mensaje-devolucion" role="status" aria-live="polite"></p></section></main>
+  <footer class="site-footer"><div class="footer-inner"><div><a class="footer-brand" href="index.html">SIGEP<span aria-hidden="true">↗</span></a><p>Sistema de Gestión de Elementos Perdidos</p><small>Institución Universitaria ITM · Medellín, Colombia</small></div><nav aria-label="Información"><a href="ayuda.html#contacto-ayuda">Contacto</a><a href="ayuda.html#terminos">Términos de uso</a><a href="ayuda.html#privacidad">Política de privacidad</a></nav></div><div class="footer-bottom">Hecho para conectar a nuestra comunidad.</div></footer>
+</body>
+</html>

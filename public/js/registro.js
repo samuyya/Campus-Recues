@@ -141,7 +141,7 @@
       prepararFormulario();
       limpiarFoto();
       mensaje.textContent = 'Reporte guardado correctamente.';
-      enlaceCreado.href = `index.html?reporte=${encodeURIComponent(creado.id)}#detalle-reporte`;
+      enlaceCreado.href = `detalle.html?id=${encodeURIComponent(creado.id)}`;
       enlaceCreado.hidden = false;
     } catch (problema) {
       error.textContent = problema.message;
