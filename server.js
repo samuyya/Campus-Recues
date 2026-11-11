@@ -5,6 +5,7 @@ require('./db'); // abre la BD y crea la tabla al arrancar
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use('/api/reportes', require('./routes/reportes'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
