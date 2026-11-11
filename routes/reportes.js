@@ -93,4 +93,14 @@ router.post('/', (req, res) => {
   res.status(201).json(db.insertar(datos));
 });
 
+// Marcar como devuelto es idempotente: si ya lo estaba, responde igual con el reporte.
+router.patch('/:id/devuelto', (req, res) => {
+  const id = leerId(req.params.id);
+  const reporte = id === null ? undefined : db.marcarDevuelto(id);
+  if (!reporte) {
+    return res.status(404).json({ error: 'No se encontró el reporte solicitado.' });
+  }
+  res.json(reporte);
+});
+
 module.exports = router;
