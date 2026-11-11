@@ -182,13 +182,6 @@
       if (destino?.tagName === 'DETAILS') destino.open = true;
     });
   });
-  const logo = document.getElementById('logo-itm');
-  logo.addEventListener('load', () => {
-    logo.hidden = false;
-    document.getElementById('logo-alternativo').hidden = true;
-  });
-  logo.addEventListener('error', () => { logo.hidden = true; });
-  logo.src = 'assets/logo-itm.png';
   reintentar.addEventListener('click', cargarReportes);
   cargarReportes();
 })();
