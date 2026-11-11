@@ -4,24 +4,28 @@
   const mensaje = document.getElementById('mensaje-general');
   const error = document.getElementById('error-general');
   const reintentar = document.getElementById('reintentar-conexion');
+  const lista = document.getElementById('lista-reportes');
 
-  async function comprobarConexion() {
+  async function cargarReportes() {
     error.textContent = '';
-    mensaje.textContent = 'Conectando con el servidor…';
+    mensaje.textContent = 'Cargando reportes…';
+    lista.setAttribute('aria-busy', 'true');
     reintentar.hidden = true;
     reintentar.disabled = true;
     try {
-      await window.SigepAPI.listar();
-      mensaje.textContent = 'Conexión lista.';
+      const reportes = await window.SigepAPI.listar();
+      window.SigepUI.mostrarReportes(reportes);
+      mensaje.textContent = '';
     } catch (problema) {
       mensaje.textContent = '';
       error.textContent = problema.message;
       reintentar.hidden = false;
     } finally {
+      lista.setAttribute('aria-busy', 'false');
       reintentar.disabled = false;
     }
   }
 
-  reintentar.addEventListener('click', comprobarConexion);
-  comprobarConexion();
+  reintentar.addEventListener('click', cargarReportes);
+  cargarReportes();
 })();
