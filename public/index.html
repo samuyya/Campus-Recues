@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reporta objetos perdidos o encontrados en el campus y ayuda a devolverlos a sus propietarios.">
   <title>SIGEP | Objetos perdidos del campus</title>
+  <script src="js/api.js" defer></script>
+  <script src="js/app.js" defer></script>
 </head>
 <body>
   <a href="#contenido">Saltar al contenido principal</a>
@@ -23,6 +25,7 @@
     <p>Vista inicial: guardar, filtrar y consultar detalles estarán disponibles al conectar la aplicación.</p>
     <div id="mensaje-general" role="status" aria-live="polite"></div>
     <div id="error-general" role="alert"></div>
+    <button id="reintentar-conexion" type="button" hidden>Reintentar conexión</button>
 
     <section id="reportes" aria-labelledby="titulo-reportes">
       <h2 id="titulo-reportes">Explora los reportes</h2>
